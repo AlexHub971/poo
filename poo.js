@@ -98,12 +98,23 @@ class Perroquet extends AbstractOiseau {
 
     parler() {
         console.log("Le perroquet "+this.nom+" parle.");
+        super.communiquer();
+    }
+
+    communiquer() {
+        console.log("Le perroquet "+this.nom+" communique.");
     }
 }
 
 const pieQuiChante = new Pie("Marcel", 0x000000, 100, 50);
-pieQuiChante.chaparder();
+// pieQuiChante.chaparder();
+// pieQuiChante.chanter();
 
 /* Si le code suivant est activé, un message d'erreur s'affiche car la classe Animal est abstraite et ne peut pas être instanciée*/
 // const animal = new AbstractAnimal("Pikachu", "0x00");
 // console.log(animal);
+
+const coco = new Perroquet("Coco", 0xFF0000, 100, 80);
+// console.log(coco);
+// coco.parler();
+// coco.communiquer();
