@@ -46,11 +46,12 @@ class AbstractOiseau extends AbstractAnimal {
      */
     constructor(nom, couleur, sante = 100, longueurDesAiles) 
     {  
+        super(nom, couleur, sante); // pour envoyer à la classe parent
+
         if(this.constructor === AbstractOiseau) {
             throw new TypeError("Abstract class Oiseau cannot be instantiated directly");
         }
 
-        super(nom, couleur, sante); // pour envoyer à la classe parent
         this.longueurDesAiles = longueurDesAiles;
     }
 
@@ -83,9 +84,26 @@ class Pie extends AbstractOiseau {
     }
 }
 
+class Perroquet extends AbstractOiseau {
+    /**
+     * 
+     * @param {String} nom 
+     * @param {Number} couleur 
+     * @param {Number} sante 
+     * @param {Number} longueurDesAiles 
+     */
+    constructor(nom, couleur, sante=100, longueurDesAiles) {
+        super(nom, couleur, sante, longueurDesAiles);
+    }
+
+    parler() {
+        console.log("Le perroquet "+this.nom+" parle.");
+    }
+}
+
 const pieQuiChante = new Pie("Marcel", 0x000000, 100, 50);
-console.log(pieQuiChante);
+pieQuiChante.chaparder();
 
 /* Si le code suivant est activé, un message d'erreur s'affiche car la classe Animal est abstraite et ne peut pas être instanciée*/
 // const animal = new AbstractAnimal("Pikachu", "0x00");
-// console.log(animal); 
+// console.log(animal);
