@@ -1,12 +1,25 @@
+class AbstractNourriture {
+    /**
+     * 
+     * @param {Number} ptsDeVie 
+     */
+    constructor(ptsDeVie = 10) {
+        this.ptsDeVie = ptsDeVie;
+    }
+}
+
 // CLASSE MERE ANIMAL
-class AbstractAnimal {
+class AbstractAnimal extends AbstractNourriture {
     /**
      * 
      * @param {String} nom 
      * @param {Number} couleur 
      * @param {Number} sante 
+     * @param {Number} ptsDeVie 
      */
-    constructor(nom, couleur, sante = 100) {
+    constructor(nom, couleur, sante = 100, ptsDeVie = 10) {
+        super(ptsDeVie);
+
         if(this.constructor === AbstractAnimal) {
             throw new TypeError("Abstract class AbstractAnimal cannot be instantiated directly");
         }
@@ -19,8 +32,9 @@ class AbstractAnimal {
         console.log("L'animal "+this.nom+" dort.");
     }
 
-    manger() {
-        console.log("L'animal "+this.nom+" mange.");
+    manger(nourriture) {
+        console.log("L'animal "+this.nom+" mange " + nourriture.nom +".");
+        this.sante += nourriture.ptsDeVie;
     }
 
     attaquer() {
@@ -46,9 +60,9 @@ class AbstractOiseau extends AbstractAnimal {
      * @param {Number} sante 
      * @param {Number} longueurDesAiles 
      */
-    constructor(nom, couleur, sante = 100, longueurDesAiles) 
+    constructor(nom, couleur, sante = 100, ptsDeVie = 10, longueurDesAiles) 
     {  
-        super(nom, couleur, sante); // pour envoyer à la classe parent
+        super(nom, couleur, sante, ptsDeVie); // "super" pour renvoyer à la propriété de la classe parent
 
         if(this.constructor === AbstractOiseau) {
             throw new TypeError("Abstract class Oiseau cannot be instantiated directly");
@@ -84,8 +98,8 @@ class AbstractPoisson extends AbstractAnimal {
      * @param {Number} sante 
      * @param {String} type 
      */
-    constructor(nom, couleur, sante=100, type) {
-        super(nom, couleur, sante);
+    constructor(nom, couleur, sante=100, ptsDeVie = 15, type) {
+        super(nom, couleur, sante, ptsDeVie);
 
         this.type = type;
     }
@@ -105,8 +119,8 @@ class Pie extends AbstractOiseau {
      * @param {Number} sante 
      * @param {Number} longueurDesAiles 
      */
-    constructor(nom, couleur, sante=100, longueurDesAiles) {
-        super(nom, couleur, sante, longueurDesAiles);
+    constructor(nom, couleur, sante=100, ptsDeVie = 10, longueurDesAiles) {
+        super(nom, couleur, sante, ptsDeVie, longueurDesAiles);
     }
 
     chaparder() {
@@ -122,8 +136,8 @@ class Perroquet extends AbstractOiseau {
      * @param {Number} sante 
      * @param {Number} longueurDesAiles 
      */
-    constructor(nom, couleur, sante=100, longueurDesAiles) {
-        super(nom, couleur, sante, longueurDesAiles);
+    constructor(nom, couleur, sante=100, ptsDeVie = 10, longueurDesAiles) {
+        super(nom, couleur, sante, ptsDeVie, longueurDesAiles);
     }
 
     parler() {
@@ -146,7 +160,7 @@ class Dauphin extends AbstractPoisson {
      * @param {Number} sante 
      */
     constructor(nom, couleur, sante=100) {
-        super(nom, couleur, sante, typesPoisson.EAU_SALEE);
+        super(nom, couleur, sante, 15, typesPoisson.EAU_SALEE);
     }
     
     surfer() {
@@ -161,8 +175,8 @@ class Baleine extends AbstractPoisson {
      * @param {Number} couleur 
      * @param {Number} sante 
      */
-    constructor(nom, couleur,sante=100) {
-        super(nom, couleur, sante, typesPoisson.EAU_SALEE);
+    constructor(nom, couleur,sante=10) {
+        super(nom, couleur, sante, 25, typesPoisson.EAU_SALEE);
     }
 
     plonger() {
@@ -184,7 +198,7 @@ class Requin extends AbstractPoisson {
      * @param {Number} sante 
      */
     constructor(nom, couleur, sante=100) {
-        super(nom,couleur, sante, espece);
+        super(nom,couleur, sante, 20, espece);
 
         this.type = this.espece == especesRequin.BULLDOG ? typesPoisson.EAU_DOUCE_ET_SALEE : typesPoisson.EAU_SALEE;
 
@@ -222,9 +236,14 @@ const coco = new Perroquet("Coco", 0xFF0000, 100, 80);
 // coco.parler();
 // coco.communiquer();
 
-const mobyDick = new Baleine("Mody Dick", 0xDEDEDE, 90);
-const flipper = new Dauphin("Fliper", 0xDEDEDE, 100);
+const mobyDick = new Baleine("Mody Dick", 0xDEDEDE, 90, 20);
+const flipper = new Dauphin("Fliper", 0xDEDEDE, 100, 15);
 
-const bruce = new Requin("Bruce", 0xDEDEDE, 100, especesRequin.BLANC);
-const enclume = new Requin("Enclume", 0xDEDEDE, 80, especesRequin.MARTEAU);
-const boule = new Requin("Boule", 0xDEDEDE, 100, especesRequin.BULLDOG);
+const bruce = new Requin("Bruce", 0xDEDEDE, 100, 20, especesRequin.BLANC);
+const enclume = new Requin("Enclume", 0xDEDEDE, 80, 10, especesRequin.MARTEAU);
+const boule = new Requin("Boule", 0xDEDEDE, 100, 20, especesRequin.BULLDOG);
+
+
+console.log(bruce);
+console.log(enclume);
+console.log(boule);
