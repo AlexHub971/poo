@@ -1,3 +1,4 @@
+// CLASSE MERE ANIMAL
 class AbstractAnimal {
     /**
      * 
@@ -36,6 +37,7 @@ class AbstractAnimal {
 
 }
 
+// CLASSE MERE OISEAU, FILLE DE ANIMAL
 class AbstractOiseau extends AbstractAnimal {
     /**
      * 
@@ -67,6 +69,34 @@ class AbstractOiseau extends AbstractAnimal {
 
 }
 
+const typesPoisson = {
+    EAU_DOUCE: 1,
+    EAU_SALEE: 2,
+    EAU_DOUCE_ET_SALEE: 3
+}
+
+// CLASSE MERE POISSON, FILLE DE ANIMAL
+class AbstractPoisson extends AbstractAnimal {
+    /**
+     * 
+     * @param {String} nom 
+     * @param {Number} couleur 
+     * @param {Number} sante 
+     * @param {String} type 
+     */
+    constructor(nom, couleur, sante=100, type) {
+        super(nom, couleur, sante);
+
+        this.type = type;
+    }
+
+    nager() {
+        console.log("Le poisson " + this.nom + " nage.");
+        super.seDeplacer();
+    }
+}
+
+// LES FILLES DE OISEAU
 class Pie extends AbstractOiseau {
     /**
      * 
@@ -106,6 +136,79 @@ class Perroquet extends AbstractOiseau {
     }
 }
 
+/// LES FILLES DE POISSONS
+
+class Dauphin extends AbstractPoisson {
+    /**
+     * 
+     * @param {String} nom 
+     * @param {Number} couleur 
+     * @param {Number} sante 
+     */
+    constructor(nom, couleur, sante=100) {
+        super(nom, couleur, sante, typesPoisson.EAU_SALEE);
+    }
+    
+    surfer() {
+        console.log("Le dauphin "+this.nom+ "surfe.");
+    }
+}
+
+class Baleine extends AbstractPoisson {
+    /**
+     * 
+     * @param {String} nom 
+     * @param {Number} couleur 
+     * @param {Number} sante 
+     */
+    constructor(nom, couleur,sante=100) {
+        super(nom, couleur, sante, typesPoisson.EAU_SALEE);
+    }
+
+    plonger() {
+        console.log("La baleine "+this.nom+" plonge.");
+    }
+}
+
+const especesRequin = {
+    BLANC: 1,
+    BULLDOG: 2,
+    MARTEAU: 3
+}
+
+class Requin extends AbstractPoisson {
+    /**
+     * 
+     * @param {String} nom 
+     * @param {Number} couleur 
+     * @param {Number} sante 
+     */
+    constructor(nom, couleur, sante=100) {
+        super(nom,couleur, sante, espece);
+
+        this.type = this.espece == especesRequin.BULLDOG ? typesPoisson.EAU_DOUCE_ET_SALEE : typesPoisson.EAU_SALEE;
+
+        this.sante = this.espece == especesRequin.MARTEAU ? 50 : this.sante;
+
+    }
+
+    communiquer() {
+        console.log("Le requin ne communique pas.");
+    }
+
+    devorer() {
+        super.manger();
+    }
+
+    manger() {
+        console.log("Un requin ne mange pas; il dévore...");
+    }
+
+}
+
+
+// DECLARATION DES INSTANCES DE CLASSES
+
 const pieQuiChante = new Pie("Marcel", 0x000000, 100, 50);
 // pieQuiChante.chaparder();
 // pieQuiChante.chanter();
@@ -118,3 +221,10 @@ const coco = new Perroquet("Coco", 0xFF0000, 100, 80);
 // console.log(coco);
 // coco.parler();
 // coco.communiquer();
+
+const mobyDick = new Baleine("Mody Dick", 0xDEDEDE, 90);
+const flipper = new Dauphin("Fliper", 0xDEDEDE, 100);
+
+const bruce = new Requin("Bruce", 0xDEDEDE, 100, especesRequin.BLANC);
+const enclume = new Requin("Enclume", 0xDEDEDE, 80, especesRequin.MARTEAU);
+const boule = new Requin("Boule", 0xDEDEDE, 100, especesRequin.BULLDOG);
