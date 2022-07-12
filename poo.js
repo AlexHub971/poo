@@ -1,4 +1,10 @@
 class Animal {
+    /**
+     * 
+     * @param {String} nom 
+     * @param {Number} couleur 
+     * @param {Number} sante 
+     */
     constructor(nom, couleur, sante = 100) {
         this.nom = nom;
         this.couleur = couleur;
@@ -28,6 +34,13 @@ class Animal {
 }
 
 class Oiseau extends Animal {
+    /**
+     * 
+     * @param {String} nom 
+     * @param {Number} couleur 
+     * @param {Number} sante 
+     * @param {Number} longueurDesAiles 
+     */
     constructor(nom, couleur, sante = 100, longueurDesAiles) 
     {  
         super(nom, couleur, sante); // pour envoyer à la classe parent
@@ -45,3 +58,23 @@ class Oiseau extends Animal {
     }
 
 }
+
+class Pie extends Oiseau {
+    /**
+     * 
+     * @param {String} nom 
+     * @param {Number} couleur 
+     * @param {Number} sante 
+     * @param {Number} longueurDesAiles 
+     */
+    constructor(nom, couleur, sante=100, longueurDesAiles) {
+        super(nom, couleur, sante, longueurDesAiles);
+    }
+
+    chaparder() {
+        console.log("La pie "+this.nom+" chaparde.");
+    }
+}
+
+const pieQuiChante = new Pie("Marcel", 0x000000, 100, 50);
+console.log(pieQuiChante);
